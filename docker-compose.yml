@@ -1,0 +1,9 @@
+services:
+  sftp:
+    image: atmoz/sftp:alpine
+    container_name: sftp
+    ports:
+      - "${SFTP_PORT}:22"
+    volumes:
+      - "./photos:/home/${SFTP_USERNAME}/photos"
+    command: "${SFTP_USERNAME}:${SFTP_PASSWORD}:::photos"
