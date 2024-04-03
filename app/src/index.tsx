@@ -8,7 +8,7 @@ import type { FC } from "hono/jsx"
 
 const PhotoList: FC<{ images: string[] }> = (props: { images: string[] }) => {
   return (
-    <ul className="container m-auto gap-4 grid grid-cols-none sm:grid-cols-3 lg:grid-cols-5">
+    <ul className="container m-auto grid grid-cols-none gap-4 lg:grid-cols-5 sm:grid-cols-3">
       {props.images.map((image) => {
         const imagePath = image.replace(/^\.\.\//, "/")
         return (
