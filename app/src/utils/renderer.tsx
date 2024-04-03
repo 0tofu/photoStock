@@ -1,4 +1,4 @@
-import { jsxRenderer } from 'hono/jsx-renderer'
+import { jsxRenderer } from "hono/jsx-renderer"
 
 /**
  * 各画面で共通して利用するレンダラー.
@@ -6,15 +6,15 @@ import { jsxRenderer } from 'hono/jsx-renderer'
 export const renderer = jsxRenderer(
   ({ children }) => {
     return (
-      <html>
+      <html lang="ja">
         <head>
           <title>photoStock</title>
         </head>
-      <body className="bg-white dark:bg-black">{children}</body>
+        <body className="bg-white dark:bg-black">{children}</body>
       </html>
     )
   },
   {
-    docType: true
-  }
+    docType: true,
+  },
 )

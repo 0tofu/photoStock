@@ -10,6 +10,8 @@
     "hono": "^4.2.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.6.4",
     "@types/bun": "latest"
-  }
+  },
+  "trustedDependencies": ["@biomejs/biome"]
 }

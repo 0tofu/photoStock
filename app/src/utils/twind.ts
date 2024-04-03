@@ -1,16 +1,13 @@
-import {defineConfig, install, inline} from '@twind/core'
-import presetAutoprefix from '@twind/preset-autoprefix'
-import presetTailwind from '@twind/preset-tailwind'
-import { createMiddleware } from 'hono/factory'
+import { defineConfig, inline, install } from "@twind/core"
+import presetAutoprefix from "@twind/preset-autoprefix"
+import presetTailwind from "@twind/preset-tailwind"
+import { createMiddleware } from "hono/factory"
 
 /**
  * Twind configuration.
  */
 const twindConfig = defineConfig({
-  presets: [
-    presetAutoprefix(),
-    presetTailwind(),
-  ]
+  presets: [presetAutoprefix(), presetTailwind()],
 })
 
 /**
@@ -22,19 +19,19 @@ export const twindInjector = () => {
   return createMiddleware(async (c, next) => {
     await next()
     if (!c.res.body) {
-      return;
+      return
     }
 
     // bodyがReadStreamの為、Bufferに詰め込み文字列に変換する
     const stream = c.res.body
-    const chunks: any[] = []
+    const chunks: Uint8Array[] = []
     for await (const chunk of stream) {
       chunks.push(chunk)
     }
     const buffer = Buffer.concat(chunks)
-    const html = buffer.toString('utf-8')
+    const html = buffer.toString("utf-8")
 
     // inlineでスタイルを埋め込む.
-    c.res = new Response(inline(html), c.res);
+    c.res = new Response(inline(html), c.res)
   })
 }
