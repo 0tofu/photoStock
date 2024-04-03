@@ -7,3 +7,11 @@ services:
     volumes:
       - "./photos:/home/${SFTP_USERNAME}/photos"
     command: "${SFTP_USERNAME}:${SFTP_PASSWORD}:::photos"
+  app:
+    image: oven/bun:latest
+    container_name: photoStock
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./:/photoStock"
+    command: bash -c "cd /photoStock/app && bun install --frozen-lockfile && bun run src/index.tsx"
