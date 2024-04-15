@@ -1,3 +1,4 @@
+import * as buffer from "node:buffer"
 import * as path from "node:path"
 import { renderer } from "@/utils/renderer"
 import { twindInjector } from "@/utils/twind"
@@ -30,6 +31,9 @@ app.use(
   serveStatic({
     root: "../photos",
     rewriteRequestPath: (path: string) => path.replace(/^\/photos/, ""),
+    mimes: {
+      JPG: "image/jpeg",
+    },
   }),
 )
 
@@ -37,7 +41,7 @@ app.use("*", renderer)
 app.use("*", twindInjector())
 
 app.get("/", async (c) => {
-  const images = await glob("../photos/**/*.{jpg,jpeg}")
+  const images = await glob("../photos/**/*.{jpg,jpeg}", { nocase: true })
   return c.render(<PhotoList images={images} />)
 })
 
